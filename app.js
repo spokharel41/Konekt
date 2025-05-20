@@ -35,8 +35,9 @@ app.post('/create-profile', async (req, res) => {
 // Profile page that shows user info from URL params
 app.get('/profile', (req, res) => {
   const data = req.query;
-  res.render('profile', { data });
+  res.render('profile', { ...data }); // ✅ Spread data for direct access in EJS
 });
+
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
