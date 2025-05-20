@@ -10,12 +10,9 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Form page
-app.get('/profile', (req, res) => {
-  const user = req.query.user;
-  // Fetch user data and render a profile page
-  res.send(`<h1>Profile Page for ${user}</h1>`);
+app.get('/', (req, res) => {
+  res.render('index');
 });
-
 
 // Handle form submission and generate QR code
 app.post('/create-profile', async (req, res) => {
