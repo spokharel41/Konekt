@@ -33,11 +33,18 @@ app.post('/create-profile', async (req, res) => {
 });
 
 // Profile page that shows user info from URL params
-app.get('/profile', (req, res) => {
-  const data = req.query;
-  res.render('profile', { ...data }); // ✅ Spread data for direct access in EJS
+app.get('/', (req, res) => {
+  res.render('index', {
+    username: '',
+    facebook: null,
+    instagram: null,
+    twitter: null,
+    youtube: null,
+    tiktok: null,
+    snapchat: null,
+    threads: null
+  });
 });
-
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
