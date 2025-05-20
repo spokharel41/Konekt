@@ -2,63 +2,99 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Create Your Connect Profile</title>
+  <title>Create Your KoneKt Profile</title>
   <style>
+    /* Reset some defaults */
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-      background: #f0f2f5;
+      background: linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%);
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      padding: 20px;
+      padding: 40px 20px;
+      color: #2c3e50;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
     .container {
       max-width: 480px;
-      margin: auto;
-      background: white;
-      padding: 25px 30px;
-      border-radius: 14px;
-      box-shadow: 0 12px 28px rgba(0,0,0,0.15);
+      width: 100%;
+      background: #fff;
+      padding: 35px 40px 40px 40px;
+      border-radius: 16px;
+      box-shadow:
+        0 8px 24px rgba(0,0,0,0.12),
+        0 4px 12px rgba(0,0,0,0.08);
+      transition: transform 0.3s ease;
     }
+    .container:hover {
+      transform: translateY(-6px);
+      box-shadow:
+        0 14px 36px rgba(0,0,0,0.18),
+        0 6px 18px rgba(0,0,0,0.12);
+    }
+
     h1 {
       text-align: center;
-      margin-bottom: 24px;
-      color: #333;
+      margin-bottom: 28px;
+      color: #34495e;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.1);
     }
+
     label {
       font-weight: 600;
       display: block;
-      margin-bottom: 6px;
-      color: #444;
+      margin-bottom: 8px;
+      color: #34495e;
+      font-size: 0.95rem;
+      user-select: none;
     }
+
     input[type="text"], input[type="url"] {
       width: 100%;
-      padding: 10px 12px;
-      font-size: 1em;
-      border: 2px solid #ddd;
-      border-radius: 8px;
-      margin-bottom: 20px;
-      transition: border-color 0.3s;
+      padding: 14px 16px;
+      font-size: 1rem;
+      border: 2px solid #cbd5e1;
+      border-radius: 12px;
+      margin-bottom: 22px;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      font-weight: 500;
+      color: #34495e;
+      background: #f9fafb;
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
     }
     input[type="text"]:focus, input[type="url"]:focus {
-      border-color: #0077cc;
+      border-color: #3b82f6;
+      box-shadow: 0 0 8px #3b82f6aa;
       outline: none;
+      background: #fff;
     }
 
     fieldset {
       border: none;
-      margin-bottom: 25px;
+      margin-bottom: 30px;
+      padding: 0;
     }
     legend {
       font-weight: 700;
-      margin-bottom: 10px;
-      font-size: 1.1em;
-      color: #222;
+      margin-bottom: 14px;
+      font-size: 1.15rem;
+      color: #2c3e50;
+      letter-spacing: 0.02em;
+      user-select: none;
     }
 
     .social-toggle {
       display: flex;
       flex-wrap: wrap;
-      gap: 14px;
+      gap: 18px;
       justify-content: center;
-      margin-bottom: 20px;
+      margin-bottom: 26px;
     }
 
     /* Hide real checkboxes */
@@ -70,70 +106,107 @@
     .social-toggle label {
       cursor: pointer;
       user-select: none;
-      width: 60px;
-      height: 60px;
-      border-radius: 12px;
+      width: 64px;
+      height: 64px;
+      border-radius: 16px;
       display: flex;
       align-items: center;
       justify-content: center;
       transition: all 0.3s ease;
-      box-shadow: 0 3px 8px rgba(0,0,0,0.12);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.1);
       filter: grayscale(100%);
-      opacity: 0.6;
-      border: 2px solid transparent;
-      background: white;
+      opacity: 0.5;
+      border: 2.5px solid transparent;
+      background: #f8fafc;
+      position: relative;
+      overflow: hidden;
     }
     .social-toggle label img {
-      width: 30px;
-      height: 30px;
+      width: 34px;
+      height: 34px;
       object-fit: contain;
+      transition: transform 0.3s ease;
     }
 
     /* Checked state */
     .social-toggle input[type="checkbox"]:checked + label {
       filter: none;
       opacity: 1;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.3);
-      border-color: #0077cc;
-      background: #e6f0ff;
+      box-shadow: 0 10px 28px rgba(0,0,0,0.25);
+      border-color: #3b82f6;
+      background: #dbeafe;
+    }
+    .social-toggle input[type="checkbox"]:checked + label img {
+      transform: scale(1.1);
     }
 
     /* Hover effect */
     .social-toggle label:hover {
       filter: none;
       opacity: 1;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.2);
-      border-color: #0077cc;
-      background: #f0f8ff;
+      box-shadow: 0 10px 24px rgba(0,0,0,0.18);
+      border-color: #3b82f6;
+      background: #e0efff;
     }
 
     .social-field {
-      margin-bottom: 20px;
+      margin-bottom: 24px;
+      transition: max-height 0.35s ease, opacity 0.35s ease;
+      overflow: hidden;
     }
     .social-field.hidden {
-      display: none;
+      max-height: 0;
+      opacity: 0;
+      pointer-events: none;
+      margin-bottom: 0;
+      padding: 0;
+    }
+    .social-field:not(.hidden) {
+      max-height: 120px;
+      opacity: 1;
+      pointer-events: auto;
     }
 
     button {
-      background: #0077cc;
+      background: linear-gradient(90deg, #2563eb 0%, #3b82f6 100%);
       color: white;
       font-weight: 700;
-      padding: 14px 0;
+      padding: 16px 0;
       width: 100%;
       border: none;
-      border-radius: 10px;
-      font-size: 1.1em;
+      border-radius: 14px;
+      font-size: 1.15em;
       cursor: pointer;
-      transition: background 0.3s ease;
+      box-shadow: 0 6px 16px rgba(59, 130, 246, 0.45);
+      transition: background 0.35s ease, box-shadow 0.35s ease;
+      letter-spacing: 0.05em;
+      user-select: none;
     }
     button:hover {
-      background: #005fa3;
+      background: linear-gradient(90deg, #1e40af 0%, #2563eb 100%);
+      box-shadow: 0 10px 26px rgba(30, 64, 175, 0.6);
+    }
+
+    /* Responsive tweak */
+    @media (max-width: 520px) {
+      .container {
+        padding: 30px 20px 30px 20px;
+        margin: 10px;
+      }
+      .social-toggle label {
+        width: 54px;
+        height: 54px;
+      }
+      .social-toggle label img {
+        width: 28px;
+        height: 28px;
+      }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Create Your Connect Profile</h1>
+    <h1>Create Your Konekt Profile</h1>
     <form action="/create-profile" method="POST" autocomplete="off">
       <label for="username">Your Name:</label>
       <input type="text" id="username" name="username" required placeholder="Your full name" />
@@ -157,10 +230,14 @@
           <label for="tiktok"><img src="https://cdn-icons-png.flaticon.com/512/3046/3046123.png" alt="TikTok" /></label>
 
           <input type="checkbox" id="snapchat" name="platform" value="snapchat" />
-          <label for="snapchat"><img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="Snapchat" /></label>
+            <label for="snapchat">
+              <img src="https://cdn-icons-png.flaticon.com/512/185/185966.png" alt="Snapchat" />
+            </label>
 
-          <input type="checkbox" id="threads" name="platform" value="threads" />
-          <label for="threads"><img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Threads" title="Threads (placeholder icon)" /></label>
+            <input type="checkbox" id="threads" name="platform" value="threads" />
+            <label for="threads">
+              <img src="https://cdn-icons-png.flaticon.com/512/12105/12105337.png" alt="Threads" title="Threads" />
+            </label>
         </div>
       </fieldset>
 
