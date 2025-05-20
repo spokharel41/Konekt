@@ -2,70 +2,225 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Enter your social media links</title>
+  <title>Create Your Connect Profile</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      padding: 40px;
-      background: #f9f9f9;
-      max-width: 400px;
+      background: #f0f2f5;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding: 20px;
+    }
+    .container {
+      max-width: 480px;
       margin: auto;
+      background: white;
+      padding: 25px 30px;
+      border-radius: 14px;
+      box-shadow: 0 12px 28px rgba(0,0,0,0.15);
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 24px;
+      color: #333;
     }
     label {
+      font-weight: 600;
       display: block;
-      margin-top: 15px;
-      font-weight: bold;
+      margin-bottom: 6px;
+      color: #444;
     }
-    input[type="text"] {
+    input[type="text"], input[type="url"] {
       width: 100%;
-      padding: 8px;
-      margin-top: 5px;
-      box-sizing: border-box;
-    }
-    button {
-      margin-top: 25px;
-      padding: 10px 20px;
+      padding: 10px 12px;
       font-size: 1em;
-      background-color: #0077cc;
-      color: white;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      transition: border-color 0.3s;
+    }
+    input[type="text"]:focus, input[type="url"]:focus {
+      border-color: #0077cc;
+      outline: none;
+    }
+
+    fieldset {
       border: none;
+      margin-bottom: 25px;
+    }
+    legend {
+      font-weight: 700;
+      margin-bottom: 10px;
+      font-size: 1.1em;
+      color: #222;
+    }
+
+    .social-toggle {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    /* Hide real checkboxes */
+    .social-toggle input[type="checkbox"] {
+      display: none;
+    }
+
+    /* Label as toggle button with icons */
+    .social-toggle label {
       cursor: pointer;
-      border-radius: 4px;
+      user-select: none;
+      width: 60px;
+      height: 60px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.12);
+      filter: grayscale(100%);
+      opacity: 0.6;
+      border: 2px solid transparent;
+      background: white;
+    }
+    .social-toggle label img {
+      width: 30px;
+      height: 30px;
+      object-fit: contain;
+    }
+
+    /* Checked state */
+    .social-toggle input[type="checkbox"]:checked + label {
+      filter: none;
+      opacity: 1;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.3);
+      border-color: #0077cc;
+      background: #e6f0ff;
+    }
+
+    /* Hover effect */
+    .social-toggle label:hover {
+      filter: none;
+      opacity: 1;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+      border-color: #0077cc;
+      background: #f0f8ff;
+    }
+
+    .social-field {
+      margin-bottom: 20px;
+    }
+    .social-field.hidden {
+      display: none;
+    }
+
+    button {
+      background: #0077cc;
+      color: white;
+      font-weight: 700;
+      padding: 14px 0;
+      width: 100%;
+      border: none;
+      border-radius: 10px;
+      font-size: 1.1em;
+      cursor: pointer;
+      transition: background 0.3s ease;
     }
     button:hover {
-      background-color: #005fa3;
+      background: #005fa3;
     }
   </style>
 </head>
 <body>
-  <h1>Enter your name and social links</h1>
-  <form method="POST" action="/profile">
-    <label for="username">Your Name:</label>
-    <input type="text" id="username" name="username" placeholder="John Doe" required />
+  <div class="container">
+    <h1>Create Your Connect Profile</h1>
+    <form action="/create-profile" method="POST" autocomplete="off">
+      <label for="username">Your Name:</label>
+      <input type="text" id="username" name="username" required placeholder="Your full name" />
 
-    <label for="facebook">Facebook URL:</label>
-    <input type="text" id="facebook" name="facebook" placeholder="https://facebook.com/yourprofile" />
+      <fieldset>
+        <legend>Select social media to include:</legend>
+        <div class="social-toggle">
+          <input type="checkbox" id="facebook" name="platform" value="facebook" />
+          <label for="facebook"><img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook" /></label>
 
-    <label for="instagram">Instagram URL:</label>
-    <input type="text" id="instagram" name="instagram" placeholder="https://instagram.com/yourprofile" />
+          <input type="checkbox" id="instagram" name="platform" value="instagram" />
+          <label for="instagram"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram" /></label>
 
-    <label for="twitter">Twitter URL:</label>
-    <input type="text" id="twitter" name="twitter" placeholder="https://twitter.com/yourprofile" />
+          <input type="checkbox" id="twitter" name="platform" value="twitter" />
+          <label for="twitter"><img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter" /></label>
 
-    <label for="youtube">YouTube URL:</label>
-    <input type="text" id="youtube" name="youtube" placeholder="https://youtube.com/yourchannel" />
+          <input type="checkbox" id="youtube" name="platform" value="youtube" />
+          <label for="youtube"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="YouTube" /></label>
 
-    <label for="tiktok">TikTok URL:</label>
-    <input type="text" id="tiktok" name="tiktok" placeholder="https://tiktok.com/@yourprofile" />
+          <input type="checkbox" id="tiktok" name="platform" value="tiktok" />
+          <label for="tiktok"><img src="https://cdn-icons-png.flaticon.com/512/3046/3046123.png" alt="TikTok" /></label>
 
-    <label for="snapchat">Snapchat URL:</label>
-    <input type="text" id="snapchat" name="snapchat" placeholder="https://snapchat.com/add/yourprofile" />
+          <input type="checkbox" id="snapchat" name="platform" value="snapchat" />
+          <label for="snapchat"><img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="Snapchat" /></label>
 
-    <label for="threads">Threads URL:</label>
-    <input type="text" id="threads" name="threads" placeholder="https://threads.net/@yourprofile" />
+          <input type="checkbox" id="threads" name="platform" value="threads" />
+          <label for="threads"><img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Threads" title="Threads (placeholder icon)" /></label>
+        </div>
+      </fieldset>
 
-    <button type="submit">Generate Profile</button>
-  </form>
+      <div id="socialInputs">
+        <div class="social-field hidden" data-platform="facebook">
+          <label for="facebookUrl">Facebook URL:</label>
+          <input type="url" id="facebookUrl" name="facebook" placeholder="https://facebook.com/yourprofile" />
+        </div>
+
+        <div class="social-field hidden" data-platform="instagram">
+          <label for="instagramUrl">Instagram URL:</label>
+          <input type="url" id="instagramUrl" name="instagram" placeholder="https://instagram.com/yourprofile" />
+        </div>
+
+        <div class="social-field hidden" data-platform="twitter">
+          <label for="twitterUrl">Twitter URL:</label>
+          <input type="url" id="twitterUrl" name="twitter" placeholder="https://twitter.com/yourprofile" />
+        </div>
+
+        <div class="social-field hidden" data-platform="youtube">
+          <label for="youtubeUrl">YouTube URL:</label>
+          <input type="url" id="youtubeUrl" name="youtube" placeholder="https://youtube.com/channel/yourprofile" />
+        </div>
+
+        <div class="social-field hidden" data-platform="tiktok">
+          <label for="tiktokUrl">TikTok URL:</label>
+          <input type="url" id="tiktokUrl" name="tiktok" placeholder="https://tiktok.com/@yourprofile" />
+        </div>
+
+        <div class="social-field hidden" data-platform="snapchat">
+          <label for="snapchatUrl">Snapchat URL:</label>
+          <input type="url" id="snapchatUrl" name="snapchat" placeholder="https://snapchat.com/add/yourprofile" />
+        </div>
+
+        <div class="social-field hidden" data-platform="threads">
+          <label for="threadsUrl">Threads URL:</label>
+          <input type="url" id="threadsUrl" name="threads" placeholder="https://threads.net/@yourprofile" />
+        </div>
+      </div>
+
+      <button type="submit">Generate QR Code</button>
+    </form>
+  </div>
+
+  <script>
+    const checkboxes = document.querySelectorAll('input[name="platform"]');
+    const socialFields = document.querySelectorAll('.social-field');
+
+    checkboxes.forEach(box => {
+      box.addEventListener('change', () => {
+        socialFields.forEach(field => {
+          if (field.dataset.platform === box.value) {
+            field.classList.toggle('hidden', !box.checked);
+            if (!box.checked) {
+              field.querySelector('input').value = '';
+            }
+          }
+        });
+      });
+    });
+  </script>
 </body>
 </html>

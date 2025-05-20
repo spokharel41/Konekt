@@ -2,52 +2,57 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Connect with <%= username %></title>
-
-  <!-- Font Awesome CDN for social icons -->
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-  />
-
+  <title>Connect with <%= data.username || 'User' %></title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      padding: 40px;
-      text-align: center;
-      background: #f9f9f9;
+    body { font-family: Arial, sans-serif; padding: 20px; text-align: center; background: #f9f9f9; }
+    h1 { color: #333; }
+    .icons a {
+      margin: 0 10px;
+      display: inline-block;
     }
-    h1 {
-      color: #333;
-      margin-bottom: 30px;
-    }
-    .social-icons a {
-      margin: 0 15px;
-      color: #333;
-      transition: color 0.3s;
-      text-decoration: none;
-      font-size: 3rem;
-    }
-    .social-icons a:hover {
-      color: #0077cc;
+    .icons img {
+      width: 48px;
+      height: 48px;
+      vertical-align: middle;
     }
   </style>
 </head>
 <body>
-  <h1>Connect with <%= username %></h1>
-  <div class="social-icons">
-    <% for (const key in links) { %>
-      <% /* Use FontAwesome icon classes, fallback for Threads since FA may not have it */ %>
-      <a href="<%= links[key] %>" target="_blank" rel="noopener" aria-label="<%= key %>">
-        <% if (key === "threads") { %>
-          <!-- Use a custom Threads icon SVG or fallback to link icon -->
-          <svg xmlns="http://www.w3.org/2000/svg" fill="#333" viewBox="0 0 24 24" width="48" height="48" style="vertical-align: middle;">
-            <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Zm0 18a7.95 7.95 0 0 1-5.66-2.34l10.9-10.9A7.95 7.95 0 0 1 20 12a8 8 0 0 1-8 8Z"/>
-          </svg>
-        <% } else { %>
-          <i class="fab fa-<%= key %>"></i>
-        <% } %>
+  <h1>Connect with <%= data.username || 'User' %></h1>
+  <div class="icons">
+    <% if (data.facebook) { %>
+      <a href="<%= data.facebook %>" target="_blank" rel="noopener">
+        <img src="/icons/facebook.png" alt="Facebook" title="Facebook" />
+      </a>
+    <% } %>
+    <% if (data.instagram) { %>
+      <a href="<%= data.instagram %>" target="_blank" rel="noopener">
+        <img src="/icons/instagram.png" alt="Instagram" title="Instagram" />
+      </a>
+    <% } %>
+    <% if (data.twitter) { %>
+      <a href="<%= data.twitter %>" target="_blank" rel="noopener">
+        <img src="/icons/twitter.png" alt="Twitter" title="Twitter" />
+      </a>
+    <% } %>
+    <% if (data.youtube) { %>
+      <a href="<%= data.youtube %>" target="_blank" rel="noopener">
+        <img src="/icons/youtube.png" alt="YouTube" title="YouTube" />
+      </a>
+    <% } %>
+    <% if (data.tiktok) { %>
+      <a href="<%= data.tiktok %>" target="_blank" rel="noopener">
+        <img src="/icons/tiktok.png" alt="TikTok" title="TikTok" />
+      </a>
+    <% } %>
+    <% if (data.snapchat) { %>
+      <a href="<%= data.snapchat %>" target="_blank" rel="noopener">
+        <img src="/icons/snapchat.png" alt="Snapchat" title="Snapchat" />
+      </a>
+    <% } %>
+    <% if (data.threads) { %>
+      <a href="<%= data.threads %>" target="_blank" rel="noopener">
+        <img src="/icons/threads.png" alt="Threads" title="Threads" />
       </a>
     <% } %>
   </div>
