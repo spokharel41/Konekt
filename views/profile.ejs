@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Your Links</title>
+  <style>
+    body { font-family: Arial; padding: 20px; text-align: center; background: #f9f9f9; }
+    a { display: block; margin: 10px; font-size: 1.2em; color: #0077cc; text-decoration: none; }
+    h1 { color: #333; }
+  </style>
+</head>
+<body>
+  <h1>Connect with Me</h1>
+  <% if (facebook) { %>
+    <a href="<%= facebook %>" target="_blank">Facebook</a>
+  <% } %>
+  <% if (instagram) { %>
+    <a href="<%= instagram %>" target="_blank">Instagram</a>
+  <% } %>
+  <% if (twitter) { %>
+    <a href="<%= twitter %>" target="_blank">Twitter</a>
+  <% } %>
+</body>
+</html>

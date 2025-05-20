@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Create Your Social Link Page</title>
+  <style>
+    body { font-family: Arial; padding: 20px; text-align: center; background: #f9f9f9; }
+    input { display: block; width: 80%; margin: 10px auto; padding: 10px; }
+    button { padding: 10px 20px; background: #0077cc; color: white; border: none; cursor: pointer; }
+    #qr { margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <h1>Konekt – Your Link Generator</h1>
+  <form id="linkForm">
+    <input type="url" id="facebook" placeholder="Facebook URL">
+    <input type="url" id="instagram" placeholder="Instagram URL">
+    <input type="url" id="twitter" placeholder="Twitter URL">
+    <button type="submit">Generate QR Code</button>
+  </form>
+  <div id="qr"></div>
+
+  <script>
+    document.getElementById('linkForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const fb = encodeURIComponent(document.getElementById('facebook').value);
+      const ig = encodeURIComponent(document.getElementById('instagram').value);
+      const tw = encodeURIComponent(document.getElementById('twitter').value);
+
+      const url = `${location.origin}/profile?facebook=${fb}&instagram=${ig}&twitter=${tw}`;
+      const qrURL = `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(url)}&size=200x200`;
+
+      document.getElementById('qr').innerHTML = `
+        <p><a href="${url}" target="_blank">${url}</a></p>
+        <img src="${qrURL}" alt="QR Code">
+      `;
+    });
+  </script>
+</body>
+</html>

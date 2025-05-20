@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Konekt – Create Your Link Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f9f9f9;
+      text-align: center;
+    }
+    h1 {
+      color: #333;
+    }
+    form input {
+      display: block;
+      width: 80%;
+      margin: 10px auto;
+      padding: 10px;
+      font-size: 1em;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 1em;
+      background: #0077cc;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    #qr {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Konekt: Create Your Social Link Page</h1>
+  <form id="linkForm">
+    <input type="text" id="facebook" placeholder="Facebook URL">
+    <input type="text" id="instagram" placeholder="Instagram URL">
+    <input type="text" id="twitter" placeholder="Twitter URL">
+    <button type="submit">Generate My Page + QR</button>
+  </form>
+  <div id="qr"></div>
+
+  <script>
+    document.getElementById('linkForm').addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const facebook = encodeURIComponent(document.getElementById('facebook').value);
+      const instagram = encodeURIComponent(document.getElementById('instagram').value);
+      const twitter = encodeURIComponent(document.getElementById('twitter').value);
+
+      const query = `facebook=${facebook}&instagram=${instagram}&twitter=${twitter}`;
+      const link = `${location.origin}/view.html?${query}`;
+
+      const qrAPI = `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(link)}&size=200x200`;
+
+      document.getElementById('qr').innerHTML = `
+        <p>Your page: <a href="${link}" target="_blank">${link}</a></p>
+        <img src="${qrAPI}" alt="QR Code">
+      `;
+    });
+  </script>
+</body>
+</html>
