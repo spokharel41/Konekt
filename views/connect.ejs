@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Connect with <%= username %></title>
+  <!-- Include FontAwesome for icons -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    integrity="sha512-pc6R8fOCcRpi1KK4tQoyY5tf8txZy99Wj3wT/POqwVj6aT+I6gpQ5UlxZL2A4Ew55T2PJzUb0PE7c6XbKa+mew=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+    .icons a {
+      margin: 10px;
+      font-size: 40px;
+      color: #333;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .icons a:hover {
+      color: #0077cc;
+    }
+  </style>
+</head>
+<body>
+  <h1>Connect with <%= username %></h1>
+  <div class="icons">
+    <% if (links.facebook) { %>
+      <a href="<%= links.facebook %>" target="_blank" title="Facebook"><i class="fab fa-facebook"></i></a>
+    <% } %>
+    <% if (links.instagram) { %>
+      <a href="<%= links.instagram %>" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+    <% } %>
+    <% if (links.twitter) { %>
+      <a href="<%= links.twitter %>" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a>
+    <% } %>
+    <% if (links.youtube) { %>
+      <a href="<%= links.youtube %>" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
+    <% } %>
+    <% if (links.tiktok) { %>
+      <a href="<%= links.tiktok %>" target="_blank" title="TikTok"><i class="fab fa-tiktok"></i></a>
+    <% } %>
+    <% if (links.snapchat) { %>
+      <a href="<%= links.snapchat %>" target="_blank" title="Snapchat"><i class="fab fa-snapchat"></i></a>
+    <% } %>
+    <% if (links.threads) { %>
+      <a href="<%= links.threads %>" target="_blank" title="Threads"><i class="fab fa-thread"></i></a>
+      <!-- Note: Threads icon may not be in FontAwesome, you can replace with generic icon -->
+    <% } %>
+  </div>
+</body>
+</html>
