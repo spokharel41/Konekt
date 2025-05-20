@@ -1,52 +1,66 @@
 const express = require('express');
-const bodyParser = require('body-parser');
-const QRCode = require('qrcode');
-const path = require('path');
+const qrcode = require('qrcode');
+const { v4: uuidv4 } = require('uuid');
 
 const app = express();
-app.use(bodyParser.urlencoded({ extended: true }));
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
-app.use(express.static(path.join(__dirname, 'public')));
+const port = process.env.PORT || 3000;
 
-// Form page
+app.set('view engine', 'ejs');
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static('public'));
+
+// In-memory storage for profiles
+const profiles = {};
+
 app.get('/', (req, res) => {
   res.render('index');
 });
 
-// Handle form submission and generate QR code
+// Form submission route
 app.post('/create-profile', async (req, res) => {
-  const data = req.body;
+  const { username, facebook, instagram, twitter, youtube, tiktok, snapchat, threads } = req.body;
 
-  // Build the profile URL with query params
-  const baseUrl = 'https://konekt.onrender.com/profile';
-  const params = new URLSearchParams(data).toString();
-  const profileUrl = `${baseUrl}?${params}`;
+  const profileId = uuidv4();
 
+  // Save profile data in-memory
+  profiles[profileId] = {
+    username: username || 'User',
+    links: { facebook, instagram, twitter, youtube, tiktok, snapchat, threads }
+  };
+
+  // Generate URL for profile
+  const profileUrl = `${req.protocol}://${req.get('host')}/connect/${profileId}`;
+
+  // Generate QR code image for that URL
   try {
-    const qrCodeDataUrl = await QRCode.toDataURL(profileUrl);
-    res.render('qrcode', { qrCodeDataUrl, profileUrl });
+    const qrCodeDataUrl = await qrcode.toDataURL(profileUrl);
+
+    res.render('profile-created', {
+      username,
+      profileUrl,
+      qrCodeDataUrl
+    });
   } catch (err) {
     console.error(err);
     res.status(500).send('Failed to generate QR code');
   }
 });
 
-// Profile page that shows user info from URL params
-app.get('/', (req, res) => {
-  res.render('index', {
-    username: '',
-    facebook: null,
-    instagram: null,
-    twitter: null,
-    youtube: null,
-    tiktok: null,
-    snapchat: null,
-    threads: null
+// Connect page — shown when scanning QR code
+app.get('/connect/:profileId', (req, res) => {
+  const profileId = req.params.profileId;
+  const profile = profiles[profileId];
+
+  if (!profile) {
+    return res.status(404).send('Profile not found');
+  }
+
+  res.render('connect', {
+    username: profile.username,
+    links: profile.links
   });
 });
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server started at http://localhost:${PORT}`);
+app.listen(port, () => {
+  console.log(`Server listening at http://localhost:${port}`);
 });
